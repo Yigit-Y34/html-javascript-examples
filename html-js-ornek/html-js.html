@@ -1,0 +1,111 @@
+<div id="content">Merhaba Dünya!</div>
+<script>
+    const element = document.getElementById("content");
+    element.style.color = "blue";
+    element.textContent = "Merhaba JavaScript!";
+</script>
+
+<div id="greeting"></div>
+
+<script>
+    const greetingElement = document.getElementById("greeting");
+    greetingElement.innerHTML = "<h1>Hoşgeldiniz!</h1>";
+</script>
+
+<button id="changeColor">Rengi Değiştir</button>
+<div id="box" style="width: 100px; height: 100px; background-color: blue;"></div>
+
+<script>
+    document.getElementById("changeColor").onclick = function() {
+        const box = document.getElementById("box");
+        box.style.backgroundColor = "green";
+    };
+</script>
+
+<ul id="list">
+    <li>Oğe 1</li>
+    <li>Oğe 2</li>
+</ul>
+<button id="addItem">Öğe Ekle</button>
+<script>
+    document.getElementById("addItem").onclick = function() {
+        const newItem = document.createElement("li");
+        newItem.textContent = "Yeni Öğe";
+        document.getElementById("list").appendChild(newItem);
+    };
+</script>
+<br><br>
+
+<input type="text" id="inputBox" placeholder="Adınızı girin">
+<p id="output"></p>
+<script>
+    document.getElementById("inputBox").addEventListener("input", function() {
+        const outputElement = document.getElementById("output");
+        outputElement.textContent = "Merhaba, " + this.value;
+    });
+</script>
+
+
+<input type="text" id="itemInput" placeholder="Bir öğe ekleyin">
+<button id="addButton">Ekle</button>
+<ul id="itemList"></ul>
+
+<script>
+    document.getElementById("addButton").onclick = function() {
+        const input = document.getElementById("itemInput");
+        const newItem = document.createElement("li");
+        newItem.textContent = input.value;
+        const list = document.getElementById("itemList");
+
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Sil";
+        deleteButton.onclick = function() {
+            list.removeChild(newItem);
+        }
+
+        newItem.appendChild(deleteButton);
+        list.appendChild(newItem);
+        input.value = "";
+    };
+</script>
+
+
+<h2 id="text"> Renk Değiştirme Butonu</h2>
+<button id="colorButton"> Renk Değiştirme Butonu</button>
+
+<script>
+    document.getElementById("colorButton").onclick = function() {
+        const text = document.getElementById("text");
+        text.style.color = "red";
+    }
+</script>
+
+
+
+<h1> Kullanıcı Paragraf Ekleme </h1>
+
+<input type="text" id="paragraf" placeholder="Lütfen Paragraf girin">
+
+<button id="addParagraf">Paragraf Ekle</button>
+<div id="custom"></div>
+
+<script>
+    document.getElementById("addParagraf").onclick = function() {
+        const paragraf = document.getElementById("paragraf");
+        const newParagraf = document.createElement("p");
+        newParagraf.textContent = paragraf.value;
+        const custom = document.getElementById("custom");
+        custom.appendChild(newParagraf);
+        paragraf.value = "";
+    }
+</script>
+
+<button id="changeColorButton">Rengi Değiştir</button>
+
+<script>
+    document.getElementById("changeColorButton").onclick = function() {
+        const randomColor = '#' + Math.floor(Math.random() * 16777215).toString();
+        document.body.style.backgroundColor = randomColor;
+    };
+</script>

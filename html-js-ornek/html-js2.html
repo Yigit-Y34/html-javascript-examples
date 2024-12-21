@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="inputbox" placeholder="Ara">
+    <ul id="itemList">
+        <li>Van</li>
+        <li>Samsun</li>
+        <li>İzmir</li>
+        <li>Ankara</li>
+        <li>İstanbul</li>
+        <li>Sivas</li>
+        <li>Çorum</li>
+        <li>Adana</li>
+        <li>Sakarya</li>
+        <li>Antalya</li>
+        <li>Bursa</li>
+    </ul>
+
+    <script>
+        document.getElementById("inputbox").addEventListener("input", function() {
+            const searchInput = this.value.toLowerCase();
+            const listItems = document.querySelectorAll("#itemList li");
+
+            listItems.forEach(item => {
+                if (item.innerText.toLowerCase().includes(searchInput)) {
+                    item.style.display = "list-item";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        });
+    </script>
+
+
+    <h2 id="sayac">0</h2>
+
+    <button id="arttır">Arttır</button>
+    <button id="azalt">Azalt</button>
+
+    <script>
+        let i = 0;
+        document.getElementById("arttır").addEventListener("click", function() {
+            i++;
+            document.getElementById("sayac").textContent = i;
+        })
+        document.getElementById("azalt").addEventListener("click", function() {
+            i--;
+            document.getElementById("sayac").textContent = i;
+            if (i < 0) {
+                i = 0;
+                document.getElementById("sayac").textContent = i;
+                alert("Sayaç sıfırın altında olamaz!!")
+            }
+        })
+    </script>
+
+
+
+    <h2>Ad ve Soyad Girisi</h2>
+    <input type="text" id="ad" placeholder="Adınızı girin">
+    <input type="text" id="soyad" placeholder="Soyadınızı girin">
+    <button id="ekleBtn">Ekle</button>
+
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Ad</th>
+                <th>Soyad</th>
+            </tr>
+        </thead>
+        <tbody id="tabloBody">
+        </tbody>
+    </table>
+
+    <script>
+        let satirNumarasi = 0;
+
+        document.getElementById("ekleBtn").addEventListener("click", function() {
+            const ad = document.getElementById("ad").value.trim();
+            const soyad = document.getElementById("soyad").value.trim();
+
+            if (ad === "" || soyad === "") {
+                alert("Lütfen ad ve soyad giriniz!");
+                return;
+            }
+
+            satirNumarasi++;
+            const yeniSatir = document.createElement("tr");
+
+            yeniSatir.innerHTML = `
+            <td>${satirNumarasi}</td>
+            <td>${ad}</td>
+            <td>${soyad}</td>
+        `;
+            document.getElementById("tabloBody").appendChild(yeniSatir);
+
+            document.getElementById("ad").value = '';
+            document.getElementById("soyad").value = '';
+
+            document.getElementById("ad").focus();
+        });
+    </script>
+
+
+    <h1>Zamanlayıcı</h1>
+
+    <div id="timer">0</div>
+
+    <button id="startBtn" class="start">Başlat</button>
+    <button id="stopBtn" class="stop">Durdur</button>
+    <button id="resetBtn" class="reset">Sıfırla</button>
+
+    <script>
+        let saniye = 0;
+        let intervalID;
+
+        document.getElementById("startBtn").addEventListener("click", function() {
+            if (!intervalID) {
+                intervalID = setInterval(() => {
+                    saniye++;
+                    document.getElementById("timer").textContent = saniye;
+                }, 1000);
+            }
+        });
+
+        document.getElementById("stopBtn").addEventListener("click", function() {
+            clearInterval(intervalID);
+            intervalID = null;
+        });
+
+        document.getElementById("resetBtn").addEventListener("click", function() {
+            clearInterval(intervalID);
+            intervalID = null;
+            saniye = 0;
+            document.getElementById("timer").textContent = saniye;
+        });
+    </script>
+
+
+    <h1>Kelime Sayacı</h1>
+
+    <textarea id="metinAlani" placeholder="Buraya metin yazın..."></textarea>
+
+    <p>Kelime Sayısı: <span id="kelimeSayaci">0</span></p>
+
+    <script>
+        const metinAlani = document.getElementById("metinAlani");
+        const kelimeSayaci = document.getElementById("kelimeSayaci");
+
+        metinAlani.addEventListener("input", function() {
+            const metin = metinAlani.value.trim();
+            const kelimeler = metin ? metin.split(/\s+/) : [];
+            kelimeSayaci.textContent = kelimeler.length;
+        });
+    </script>
+
+
+
+    <h1>Taş, Kağıt, Makas Oyunu</h1>
+
+    <div class="button-container">
+        <button class="tas" data-secim="taş">Taş</button>
+        <button class="kagit" data-secim="kağıt">Kağıt</button>
+        <button class="makas" data-secim="makas">Makas</button>
+    </div>
+
+    <p id="sonuc">Seçiminizi yapın!</p>
+
+    <script>
+        const butonlar = document.querySelectorAll("button");
+        const sonucElementi = document.getElementById("sonuc");
+
+        const secenekler = ["taş", "kağıt", "makas"];
+
+
+        butonlar.forEach(buton => {
+            buton.addEventListener("click", function() {
+                const kullaniciSecimi = this.getAttribute("data-secim");
+                const bilgisayarSecimi = secenekler[Math.floor(Math.random() * secenekler.length)];
+
+                const sonuc = sonucHesapla(kullaniciSecimi, bilgisayarSecimi);
+
+                sonucElementi.innerHTML = `
+                <strong>Sen: ${kullaniciSecimi}</strong> - 
+                <strong>Bilgisayar: ${bilgisayarSecimi}</strong> <br>
+                <strong>${sonuc}</strong>
+            `;
+            });
+        });
+
+        function sonucHesapla(kullanici, bilgisayar) {
+            if (kullanici === bilgisayar) {
+                return "Berabere!";
+            }
+            if (
+                (kullanici === "taş" && bilgisayar === "makas") ||
+                (kullanici === "kağıt" && bilgisayar === "taş") ||
+                (kullanici === "makas" && bilgisayar === "kağıt")
+            ) {
+                return "Tebrikler, Kazandınız! 🎉";
+            } else {
+                return "Maalesef, Bilgisayar Kazandı! 😢";
+            }
+        }
+    </script>
+</body>
+
+</html>
